@@ -1,0 +1,61 @@
+/* FORM STYLES */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px auto;
+  padding: 16px;
+  width: 800px;
+  border-radius: 4px;
+
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+}
+
+/* FORM GROUP */
+.formGroup {
+  display: flex;
+  align-items: flex-start;
+  height: 80px;
+  gap: 32px;
+
+  div {
+    flex-grow: 1
+  }
+}
+
+.formTextfield {
+  height: 80px;
+}
+
+.formTextArea {
+  height: 120px;
+}
+
+/* FORM ACTIONS */
+.formActions {
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+
+  button:disabled {
+    cursor: not-allowed;
+    pointer-events: all;
+  }
+}
+
+/* FORM IMAGES */
+.formImages {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  img {
+    aspect-ratio: 16 / 9;
+    width: calc(50% - 8px);
+  }
+}
