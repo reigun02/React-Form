@@ -1,5 +1,5 @@
-@use './sass/variables' as *;
-@use './sass/mixins' as *;
+@use "./sass/variables" as *;
+@use "./sass/mixins" as *;
 
 * {
   margin: 0;
@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
 }
 
@@ -33,7 +33,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  transition: background-color 5000000s ease-in-out 0s; 
+  transition: background-color 5000000s ease-in-out 0s;
 }
 
 /* Works on Chrome, Edge, and Safari */

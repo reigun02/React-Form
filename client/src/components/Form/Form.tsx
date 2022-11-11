@@ -1,15 +1,11 @@
-import AddIcon from '@mui/icons-material/Add'
-import { Button } from '@mui/material'
-import TextField from '@mui/material/TextField'
-import axios from 'axios'
-import React, { useRef, useState } from 'react'
-import useForm from '../../hooks/useForm'
-import {
-  emailValidation,
-  generateEmailHelperText,
-  inputTextValidation
-} from '../../utils/helper'
-import styles from './Form.module.scss'
+import AddIcon from "@mui/icons-material/Add"
+import { Button } from "@mui/material"
+import TextField from "@mui/material/TextField"
+import axios from "axios"
+import React, { useRef, useState } from "react"
+import useForm from "../../hooks/useForm"
+import { emailValidation, generateEmailHelperText, inputTextValidation } from "../../utils/helper"
+import styles from "./Form.module.scss"
 
 interface IProps {
   handleSetLoader: (loading: boolean) => void
@@ -32,7 +28,7 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
     hasError: firstNameInputHasError,
     inputChangeHandler: firstNameChangeHandler,
     inputBlurHandler: firstNameBlurHandler,
-    reset: resetFirstNameInput
+    reset: resetFirstNameInput,
   } = useForm(inputTextValidation)
 
   // Last name
@@ -42,7 +38,7 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
     hasError: lastNameInputHasError,
     inputChangeHandler: lastNameChangeHandler,
     inputBlurHandler: lastNameBlurHandler,
-    reset: resetLastNameInput
+    reset: resetLastNameInput,
   } = useForm(inputTextValidation)
 
   // Description
@@ -52,7 +48,7 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
     hasError: descriptionInputHasError,
     inputChangeHandler: descriptionChangeHandler,
     inputBlurHandler: descriptionBlurHandler,
-    reset: resetDescriptionInput
+    reset: resetDescriptionInput,
   } = useForm(inputTextValidation)
 
   // Email
@@ -62,12 +58,12 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
     hasError: emailInputHasError,
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-    reset: resetEmailInput
+    reset: resetEmailInput,
   } = useForm(emailValidation)
 
   const handleAddImageClick = () => {
     // Selects the element input of type='file'
-    const fileUploadButton = document.getElementById('fileUploadBtn')
+    const fileUploadButton = document.getElementById("fileUploadBtn")
 
     // Fire click event to trigger file selection for upload
     fileUploadButton?.click()
@@ -76,10 +72,10 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
   // Saves the selected file for upload in local state for preview
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0]
-    setFiles(prevFiles => [...prevFiles, URL.createObjectURL(file)])
+    setFiles((prevFiles) => [...prevFiles, URL.createObjectURL(file)])
 
     // Change target value to trigger onChange even if same file gets uploaded consecutively
-    event.target.value = ''
+    event.target.value = ""
   }
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -112,8 +108,8 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
   const sendMail = async () => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     }
 
     const body = JSON.stringify({
@@ -121,28 +117,21 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
       lastName: enteredLastName,
       smallDescription: enteredDescription,
       email: enteredEmail,
-      numberOfFilesUploaded: files.length
+      numberOfFilesUploaded: files.length,
     })
 
     try {
-      await axios.post('/sendmail', body, config)
+      await axios.post("/sendmail", body, config)
     } catch (error: any) {
       throw new Error(error)
     }
   }
 
   const isFormValid =
-    enteredFirstNameIsValid &&
-    enteredLastNameIsValid &&
-    enteredDescriptionIsValid &&
-    enteredEmailIsValid
+    enteredFirstNameIsValid && enteredLastNameIsValid && enteredDescriptionIsValid && enteredEmailIsValid
 
   return (
-    <form
-      ref={form}
-      onSubmit={handleFormSubmit}
-      className={styles.formContainer}
-    >
+    <form ref={form} onSubmit={handleFormSubmit} className={styles.formContainer}>
       <h2 className={styles.formTitle}>Simple Form</h2>
       <div className={styles.formInputs}>
         {/* First Name */}
@@ -155,8 +144,8 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
           onChange={firstNameChangeHandler}
           onBlur={firstNameBlurHandler}
           error={firstNameInputHasError}
-          helperText={firstNameInputHasError ? 'First name is required' : ''}
-          inputProps={{ spellCheck: 'false' }}
+          helperText={firstNameInputHasError ? "First name is required" : ""}
+          inputProps={{ spellCheck: "false" }}
         />
         {/* Last Name */}
         <TextField
@@ -168,8 +157,8 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
           onChange={lastNameChangeHandler}
           onBlur={lastNameBlurHandler}
           error={lastNameInputHasError}
-          helperText={lastNameInputHasError ? 'Last name is required' : ''}
-          inputProps={{ spellCheck: 'false' }}
+          helperText={lastNameInputHasError ? "Last name is required" : ""}
+          inputProps={{ spellCheck: "false" }}
         />
         {/* Description */}
         <TextField
@@ -181,12 +170,10 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
           onChange={descriptionChangeHandler}
           onBlur={descriptionBlurHandler}
           error={descriptionInputHasError}
-          helperText={
-            descriptionInputHasError ? 'Small description is required' : ''
-          }
+          helperText={descriptionInputHasError ? "Small description is required" : ""}
           multiline
           rows={3}
-          inputProps={{ spellCheck: 'false' }}
+          inputProps={{ spellCheck: "false" }}
         />
         {/* Email */}
         <TextField
@@ -199,31 +186,21 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
           onBlur={emailBlurHandler}
           error={emailInputHasError}
           helperText={generateEmailHelperText(enteredEmail, emailInputHasError)}
-          inputProps={{ spellCheck: 'false' }}
+          inputProps={{ spellCheck: "false" }}
         />
       </div>
       {/* Image grid */}
       <div className={styles.formImages}>
-        {files.map(file => (
+        {files.map((file) => (
           <img key={file} src={file} alt="Uploaded File" />
         ))}
       </div>
       {/* Form actions */}
       <div className={styles.formActions}>
-        <Button
-          color="inherit"
-          onClick={handleAddImageClick}
-          startIcon={<AddIcon />}
-        >
+        <Button color="inherit" onClick={handleAddImageClick} startIcon={<AddIcon />}>
           Add Image
         </Button>
-        <input
-          id="fileUploadBtn"
-          onChange={handleFileUpload}
-          type="file"
-          accept="image/*"
-          ref={fileUploadButtonRef}
-        />
+        <input id="fileUploadBtn" onChange={handleFileUpload} type="file" accept="image/*" ref={fileUploadButtonRef} />
         <Button type="submit" variant="contained" disabled={!isFormValid}>
           Upload
         </Button>
