@@ -66,39 +66,20 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
   } = useForm(emailValidation)
 
   const handleAddImageClick = () => {
+    // Selects the element input of type='file'
     const fileUploadButton = document.getElementById('fileUploadBtn')
+
+    // Fire click event to trigger file selection for upload
     fileUploadButton?.click()
   }
 
+  // Saves the selected file for upload in local state for preview
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0]
     setFiles(prevFiles => [...prevFiles, URL.createObjectURL(file)])
 
     // Change target value to trigger onChange even if same file gets uploaded consecutively
     event.target.value = ''
-  }
-
-  // Call sendmail endpoint in backend
-  const sendMail = async () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
-    const body = JSON.stringify({
-      firstName: enteredFirstName,
-      lastName: enteredLastName,
-      smallDescription: enteredDescription,
-      email: enteredEmail,
-      numberOfFilesUploaded: files.length
-    })
-
-    try {
-      await axios.post('/sendmail', body, config)
-    } catch (error: any) {
-      throw new Error(error)
-    }
   }
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -127,6 +108,29 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
     }
   }
 
+  // Call sendmail endpoint in backend
+  const sendMail = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    const body = JSON.stringify({
+      firstName: enteredFirstName,
+      lastName: enteredLastName,
+      smallDescription: enteredDescription,
+      email: enteredEmail,
+      numberOfFilesUploaded: files.length
+    })
+
+    try {
+      await axios.post('/sendmail', body, config)
+    } catch (error: any) {
+      throw new Error(error)
+    }
+  }
+
   const isFormValid =
     enteredFirstNameIsValid &&
     enteredLastNameIsValid &&
@@ -139,60 +143,72 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
       onSubmit={handleFormSubmit}
       className={styles.formContainer}
     >
-      <h2>Simple Form</h2>
-      <div className={styles.formGroup}>
+      <h2 className={styles.formTitle}>React Form</h2>
+      <div className={styles.formInputs}>
+        {/* First Name */}
         <TextField
           name="firstName"
           value={enteredFirstName}
           label="First Name"
+          className={styles.formTextfieldName}
           variant="outlined"
           onChange={firstNameChangeHandler}
           onBlur={firstNameBlurHandler}
           error={firstNameInputHasError}
           helperText={firstNameInputHasError ? 'First name is required' : ''}
+          inputProps={{ spellCheck: 'false' }}
         />
+        {/* Last Name */}
         <TextField
           name="lastName"
           value={enteredLastName}
+          className={styles.formTextfieldName}
           label="Last Name"
           variant="outlined"
           onChange={lastNameChangeHandler}
           onBlur={lastNameBlurHandler}
           error={lastNameInputHasError}
           helperText={lastNameInputHasError ? 'Last name is required' : ''}
+          inputProps={{ spellCheck: 'false' }}
+        />
+        {/* Description */}
+        <TextField
+          name="smallDescription"
+          value={enteredDescription}
+          className={styles.formTextArea}
+          label="Small description"
+          variant="outlined"
+          onChange={descriptionChangeHandler}
+          onBlur={descriptionBlurHandler}
+          error={descriptionInputHasError}
+          helperText={
+            descriptionInputHasError ? 'Small description is required' : ''
+          }
+          multiline
+          rows={3}
+          inputProps={{ spellCheck: 'false' }}
+        />
+        {/* Email */}
+        <TextField
+          name="email"
+          value={enteredEmail}
+          className={styles.formTextfieldEmail}
+          label="Email Address"
+          variant="outlined"
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+          error={emailInputHasError}
+          helperText={generateEmailHelperText(enteredEmail, emailInputHasError)}
+          inputProps={{ spellCheck: 'false' }}
         />
       </div>
-      <TextField
-        name="smallDescription"
-        value={enteredDescription}
-        className={styles.formTextArea}
-        label="Small description"
-        variant="outlined"
-        onChange={descriptionChangeHandler}
-        onBlur={descriptionBlurHandler}
-        error={descriptionInputHasError}
-        helperText={
-          descriptionInputHasError ? 'Small description is required' : ''
-        }
-        multiline
-        rows={3}
-      />
-      <TextField
-        name="email"
-        value={enteredEmail}
-        className={styles.formTextField}
-        label="Email Address"
-        variant="outlined"
-        onChange={emailChangeHandler}
-        onBlur={emailBlurHandler}
-        error={emailInputHasError}
-        helperText={generateEmailHelperText(enteredEmail, emailInputHasError)}
-      />
+      {/* Image grid */}
       <div className={styles.formImages}>
         {files.map(file => (
           <img key={file} src={file} alt="Uploaded File" />
         ))}
       </div>
+      {/* Form actions */}
       <div className={styles.formActions}>
         <Button
           color="inherit"

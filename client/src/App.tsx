@@ -2,6 +2,7 @@ import Loader from './components/Loader/Loader'
 import Form from './components/Form/Form'
 import { useState } from 'react'
 import DialogboxModal from './components/DialogboxModal/DialogboxModal'
+import styles from './App.module.scss'
 
 const App = () => {
   // States
@@ -17,7 +18,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <main className={styles.container}>
       {showLoader && <Loader />}
       <DialogboxModal
         showDialogModal={showDialogModal}
@@ -27,7 +28,7 @@ const App = () => {
         handleSetLoader={handleSetLoader}
         handleSetDialogModal={handleSetDialogModal}
       />
-    </>
+    </main>
   )
 }
 

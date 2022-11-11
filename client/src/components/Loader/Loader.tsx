@@ -1,12 +1,15 @@
 import styles from './Loader.module.scss'
-import CircularProgress from '@mui/material/CircularProgress'
+import { Box } from '@mui/material'
+import LinearProgress from '@mui/material/LinearProgress'
 
 const Loader = () => {
   return (
     <>
-      <div className={styles.backdrop} >
+      <div className={styles.backdrop}>
         <h2>Uploading Form</h2>
-        <CircularProgress />
+        <Box sx={{ width: '40%' }}>
+          <LinearProgress />
+        </Box>
       </div>
     </>
   )

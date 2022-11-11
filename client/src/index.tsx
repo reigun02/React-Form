@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import './index.css'
+import './index.scss'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { theme } from './mui/theme'
 

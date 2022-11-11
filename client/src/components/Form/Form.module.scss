@@ -1,39 +1,81 @@
+@use '../../sass/variables' as *;
+@use '../../sass/mixins' as *;
+
 /* FORM STYLES */
 .formContainer {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin: 32px auto;
+  margin: 0 auto;
   padding: 16px;
   width: 800px;
-  border-radius: 4px;
+  height: 100%;
+  min-height: 650px;
+  border-radius: 8px;
+  background-color: rgb($color-white, 0.8);
+  box-shadow: 0px 2px 5px rgba($color-black, 0.3);
 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-
-  h2 {
-    text-align: center;
-    margin-bottom: 8px;
+  @include respond(tab-port) {
+    width: 500px;
   }
+
+  @include respond(phone) {
+    width: 300px;
+  }
+}
+
+.formTitle {
+  font-size: 2.1875rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-image: linear-gradient(to right,
+      $color-primary-light,
+      $color-primary-dark );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 /* FORM GROUP */
-.formGroup {
-  display: flex;
-  align-items: flex-start;
-  height: 80px;
-  gap: 32px;
+.formInputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 32px;
+  row-gap: 1rem;
 
-  div {
-    flex-grow: 1
+  .formTextfieldName,
+  .formTextfieldEmail {
+    height: 80px;
+
+    @include respond(phone) {
+      height: 65px;
+    }
   }
-}
 
-.formTextfield {
-  height: 80px;
-}
+  .formTextfieldEmail {
+    grid-column: 1/-1;
+    height: 80px;
 
-.formTextArea {
-  height: 120px;
+    @include respond(phone) {
+      height: 65px;
+    }
+  }
+
+  .formTextArea {
+    grid-column: 1/-1;
+    height: 125px;
+
+    @include respond(phone) {
+      height: 95px;
+    }
+  }
+
+  @include respond(tab-port) {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* FORM ACTIONS */
@@ -42,20 +84,41 @@
   gap: 8px;
   align-self: flex-end;
 
-  button:disabled {
-    cursor: not-allowed;
-    pointer-events: all;
+  button {
+    font-weight: 700;
+
+    &:first-child {
+      color: $color-primary;
+    }
+
+    &:last-child {
+      &:not(:disabled) {
+        color: $color-white;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        pointer-events: all;
+      }
+    }
   }
 }
 
 /* FORM IMAGES */
 .formImages {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 9.375rem);
+  grid-auto-rows: 1fr;
   gap: 16px;
-  flex-wrap: wrap;
+  flex: 1;
+  padding: 5px;
+  justify-content: center;
 
   img {
-    aspect-ratio: 16 / 9;
-    width: calc(50% - 8px);
+    width: 9.375rem;
+    aspect-ratio: 1 / 1;
+    box-shadow: 0px 2px 5px rgba($color-black, 0.3);
   }
+
+  overflow: auto;
 }

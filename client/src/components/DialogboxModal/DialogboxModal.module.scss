@@ -1,6 +1,8 @@
+@use '../../sass/variables' as *;
+
 .dialogbox {
   :global(.MuiPaper-root) {
-    width: 500px;
+    width: 31.25rem;
     background-color: transparent;
   }
 }
@@ -10,19 +12,19 @@
   align-items: center;
   padding: 16px;
   color: #fff;
-  background: rgb(25, 118, 210, 0.8);
-  letter-spacing: 0.8pt;
+  background: rgb($color-primary-dark, 0.8);
+  letter-spacing: 2px;
 
   .title {
     display: flex;
     gap: 16px;
     align-items: center;
     margin-right: auto;
-    font-size: 24px;
+    font-size: 1.5rem;
 
     svg {
-      height: 29px;
-      width: 29px;
+      height: 1.8125rem;
+      width: 1.8125rem;
     }
   }
 
@@ -33,9 +35,9 @@
 
 .content {
   padding: 24px 24px 48px 24px;
-  background: rgb(255, 255, 255, 0.8);
+  background: rgb($color-white, 0.8);
   color: #333333;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
 
   svg {
