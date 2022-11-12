@@ -6,6 +6,7 @@ const useForm = (validateValue: (enteredValue: string) => boolean) => {
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredValue(event.target.value)
+    setIsTouched(true)
   }
 
   const inputBlurHandler = () => {

@@ -143,7 +143,7 @@ const Form = ({ handleSetLoader, handleSetDialogModal }: IProps) => {
       onSubmit={handleFormSubmit}
       className={styles.formContainer}
     >
-      <h2 className={styles.formTitle}>React Form</h2>
+      <h2 className={styles.formTitle}>Simple Form</h2>
       <div className={styles.formInputs}>
         {/* First Name */}
         <TextField
